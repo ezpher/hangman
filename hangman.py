@@ -1,8 +1,16 @@
 #! python3
 
+import random
 import string
+from words import word_list
 
 # functions
+
+def get_word():
+    word = random.choice(word_list)
+    word = ''.join([letter.upper() for letter in word])
+    return word
+
 def play(word):
 
     word_letters = set(word)
@@ -13,6 +21,7 @@ def play(word):
     print()
     print("Let's play hangman: ")
     print(f'You have {tries} tries: ')
+    print(display_hangman(tries))
 
     while len(word_letters) > 0 and tries > 0:
 
@@ -51,6 +60,7 @@ def play(word):
     print()
     if tries == 0:
         print('You have no more tries left')
+        print(f"The word is {word}")
     else:
         print('You have guessed the word correctly!')
 
@@ -131,6 +141,7 @@ def display_hangman(tries):
     return stages[tries]
 
 def main(word):
+    word = get_word()
     play(word)
     while input("Play again? (Y/N): ").upper() == 'Y':
         play(word)
