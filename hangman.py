@@ -2,35 +2,65 @@
 
 import string
 
-word = 'SUBTEFUGE'
-word_letters = set(word)
-alphabet_letters = set(string.ascii_uppercase)
-used_letters = set()
+# functions
+def play(word):
 
-while len(word_letters) > 0:
-
-    guessed_word = [letter if letter in used_letters else '-' for letter in word]
+    word_letters = set(word)
+    alphabet_letters = set(string.ascii_uppercase)
+    used_letters = list()
+    tries = 6
 
     print()
-    print('Guessed Word: ', ' '.join(guessed_word))
-    print('Used Letters: ', ' '.join(used_letters))
+    print("Let's play hangman: ")
+    print(f'You have {tries} tries: ')
 
-    guessed_letter = input('Guess a letter: ').upper()
+    while len(word_letters) > 0 and tries > 0:
 
-    if guessed_letter in alphabet_letters - used_letters:
-        used_letters.add(guessed_letter)
+        guessed_word = [letter if letter in used_letters else '-' for letter in word]
 
-        if guessed_letter in word_letters:
-            word_letters.remove(guessed_letter)
-            print(f'The letter {guessed_letter} has been guessed correctly')
+        print()
+        print('Guessed Word: ', ' '.join(guessed_word))
+        print('Used Letters: ', ' '.join(used_letters))
+
+        guessed_letter = input('Guess a letter: ').upper()
+
+        if guessed_letter in alphabet_letters and guessed_letter not in used_letters:
+            used_letters.append(guessed_letter)
+
+            if guessed_letter in word_letters:
+                word_letters.remove(guessed_letter)
+                print(f'The letter {guessed_letter} has been guessed correctly')
+            else:
+                print('Try again. The letter is not in the word.')
+
+                tries -= 1
+                print(f'Tries left: {tries}')
+
+        elif guessed_letter in used_letters:
+            print('Letter has been used')
+
         else:
-            print('Try again. The letter is not in the word.')
+            print('Not a valid letter')
 
-    elif guessed_letter in used_letters:
-        print('Letter has been used')
+            tries -= 1
+            print(f'Tries left: {tries}')
 
+    print()
+    if tries == 0:
+        print('You have no more tries left')
     else:
-        print('Not a valid letter')
+        print('You have guessed the word correctly!')
 
-print('You have guessed the word correctly!')
+def main(word):
+    play(word)
+    while input("Play again? (Y/N): ").upper() == 'Y':
+        play(word)
+
+# main
+if __name__ == '__main__':    
+
+    word = 'SUBTEFUGE'
+    main(word)
+
+
 
