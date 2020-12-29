@@ -38,17 +38,22 @@ def play(word):
 
             if guessed_letter in word_letters:
                 word_letters.remove(guessed_letter)
+
+                print()
                 print(f'The letter {guessed_letter} has been guessed correctly')
             else:
+                print()
                 print('Try again. The letter is not in the word.')
 
                 tries -= 1
                 print(f'Tries left: {tries}')
 
         elif guessed_letter in used_letters:
+            print()
             print('Letter has been used')
 
         else:
+            print()
             print('Not a valid letter')
 
             tries -= 1
