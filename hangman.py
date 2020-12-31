@@ -134,7 +134,7 @@ def display_hangman(tries):
 
     return stages[tries]
 
-def main(word):
+def main():
     word = get_word()
     play(word)
     while input("Play again? (Y/N): ").upper() == 'Y':
@@ -143,9 +143,7 @@ def main(word):
 
 # main
 if __name__ == '__main__':    
-
-    word = 'SUBTEFUGE'
-    main(word)
+    main()
 
 
 
